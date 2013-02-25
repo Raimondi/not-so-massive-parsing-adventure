@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+require './lib/suckland/scanner'
+require './lib/suckland/parser'
+require './lib/suckland/code_generator'
+
+tokens = Suckland::Scanner.scan(STDIN.read)
+ast = Suckland::Parser.new.parse(tokens)
+code = Suckland::CodeGenerator::C.new.compile(ast)
+puts code
