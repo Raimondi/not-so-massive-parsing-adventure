@@ -21,16 +21,16 @@ module_eval(<<'...end parser.racc/module_eval...', 'parser.racc', 10)
 ##### State transition tables begin ###
 
 racc_action_table = [
-     1,     3,     4,     5,     6 ]
+     1,     3,     4,     5,     6,     7 ]
 
 racc_action_check = [
-     0,     1,     2,     3,     4 ]
+     0,     1,     2,     3,     4,     5 ]
 
 racc_action_pointer = [
-    -2,    -2,     2,    -1,     4,   nil,   nil ]
+    -2,    -2,     2,    -1,     4,     0,   nil,   nil ]
 
 racc_action_default = [
-    -2,    -2,    -2,    -2,    -2,    -1,     7 ]
+    -2,    -2,    -2,    -2,    -2,    -2,     8,    -1 ]
 
 racc_goto_table = [
      2 ]
@@ -46,20 +46,21 @@ racc_goto_default = [
 
 racc_reduce_table = [
   0, 0, :racc_error,
-  3, 6, :_reduce_1 ]
+  4, 7, :_reduce_1 ]
 
 racc_reduce_n = 2
 
-racc_shift_n = 7
+racc_shift_n = 8
 
 racc_token_table = {
   false => 0,
   :error => 1,
   :ID => 2,
   "(" => 3,
-  ")" => 4 }
+  ")" => 4,
+  :END => 5 }
 
-racc_nt_base = 5
+racc_nt_base = 6
 
 racc_use_result_var = true
 
@@ -85,6 +86,7 @@ Racc_token_to_s_table = [
   "ID",
   "\"(\"",
   "\")\"",
+  "END",
   "$start",
   "call" ]
 
