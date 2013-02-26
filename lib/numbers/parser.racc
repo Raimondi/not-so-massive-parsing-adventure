@@ -1,0 +1,26 @@
+class Numbers::Parser
+
+rule
+
+number     : scientific               { result = val.join }
+           | floating {result = val.join}
+           | integer {result = val.join}
+scientific : floating exp integer {result = val.join}
+           | floating {result = val.join}
+floating   : integer point unsigned {result = val.join}
+           | integer
+integer    : sign unsigned {result = val.join}
+           | unsigned
+
+end
+
+---- inner ----
+  def parse(tokens)
+    @tokens = tokens
+    do_parse
+  end
+
+  def next_token
+    @tokens.shift
+  end
+
