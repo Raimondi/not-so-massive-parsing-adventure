@@ -6,16 +6,11 @@ number     : num END
 num        : scientific
            | floating
            | integer
-           | hexa
-scientific : floating HEXCHAR integer {result = do_scientific(val)}
-floating   : integer POINT unsigned   {result = val.join}
-integer    : SIGN unsigned            {result = val.join}
-           | unsigned
-hexa       : hexa hexdigit            {result = val.join}
-           | hexdigit
-hexdigit   : HEXCHAR | DIGIT
-unsigned   : unsigned DIGIT           {result = val.join}
-           | DIGIT
+           | HEXA
+scientific : floating EXP integer     {result = val.join}
+floating   : integer POINT UNSIGNED   {result = val.join}
+integer    : SIGN UNSIGNED            {result = val.join}
+           | UNSIGNED
 
 end
 
