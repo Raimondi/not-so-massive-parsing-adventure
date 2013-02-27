@@ -1,3 +1,4 @@
+require 'rubygems'
 require 'lexr'
 
 module Numbers
@@ -7,8 +8,13 @@ module Numbers
       expr = Lexr.that {
         ignores /\s+/     =>  :WHITESPACE
         matches /[-+]/    =>  :SIGN
-        matches /[eE]/    =>  :EXP
-        matches /[0-9]+/  =>  :UNSIGNED
+        matches /[0-9]/   =>  :DIGIT
+        matches /[aA]/    =>  :A
+        matches /[bB]/    =>  :B
+        matches /[cC]/    =>  :C
+        matches /[dD]/    =>  :D
+        matches /[eE]/    =>  :E
+        matches /[fF]/    =>  :F
         matches /\./      =>  :POINT
       }
       lexer = expr.new(source)

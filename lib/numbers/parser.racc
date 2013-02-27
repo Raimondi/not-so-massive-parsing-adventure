@@ -6,10 +6,21 @@ number     : num END
 num        : scientific
            | floating
            | integer
-scientific : floating EXP integer     {result = val.join}
-floating   : integer POINT UNSIGNED   {result = val.join}
-integer    : SIGN UNSIGNED            {result = val.join}
-           | UNSIGNED
+           | hexa
+scientific : floating E integer     {result = val.join}
+floating   : integer POINT unsigned   {result = val.join}
+integer    : SIGN unsigned            {result = val.join}
+           | unsigned
+hexa       : A
+           | B
+           | C
+           | D
+           | E
+           | F
+           | unsigned
+           | hexa
+unsigned   : DIGIT
+           | unsigned
 
 end
 
