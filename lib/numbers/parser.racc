@@ -11,16 +11,11 @@ scientific : floating E integer     {result = val.join}
 floating   : integer POINT unsigned   {result = val.join}
 integer    : SIGN unsigned            {result = val.join}
            | unsigned
-hexa       : A
-           | B
-           | C
-           | D
-           | E
-           | F
-           | unsigned
-           | hexa
-unsigned   : DIGIT
-           | unsigned
+hexa       : hexa HEXDIGIT
+           | HEXDIGIT 
+unsigned   : unsigned DIGIT
+           | DIGIT
+
 
 end
 

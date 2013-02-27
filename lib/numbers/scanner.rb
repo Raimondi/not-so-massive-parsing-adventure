@@ -9,12 +9,8 @@ module Numbers
         ignores /\s+/     =>  :WHITESPACE
         matches /[-+]/    =>  :SIGN
         matches /[0-9]/   =>  :DIGIT
-        matches /[aA]/    =>  :A
-        matches /[bB]/    =>  :B
-        matches /[cC]/    =>  :C
-        matches /[dD]/    =>  :D
-        matches /[eE]/    =>  :E
-        matches /[fF]/    =>  :F
+        matches /\b[eE]\b/    =>  :E
+        matches /[a-fA-F0-9]+/ => :HEXDIGIT
         matches /\./      =>  :POINT
       }
       lexer = expr.new(source)
