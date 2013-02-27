@@ -7,15 +7,15 @@ num        : scientific
            | floating
            | integer
            | hexa
-scientific : floating E integer     {result = val.join}
+scientific : floating HEXCHAR integer {result = do_scientific(val)}
 floating   : integer POINT unsigned   {result = val.join}
 integer    : SIGN unsigned            {result = val.join}
            | unsigned
-hexa       : hexa HEXDIGIT
-           | HEXDIGIT 
-unsigned   : unsigned DIGIT
+hexa       : hexa hexdigit            {result = val.join}
+           | hexdigit
+hexdigit   : HEXCHAR | DIGIT
+unsigned   : unsigned DIGIT           {result = val.join}
            | DIGIT
-
 
 end
 
@@ -23,6 +23,17 @@ end
   def parse(tokens)
     @tokens = tokens
     do_parse
+  end
+
+  def do_scientific(args)
+    if args[1] !~ /[eE]/
+      raise ArgumentError, "Invalid scientific number - expected [eE] but got " + args[1]
+    end
+    args.join
+  end
+
+  def on_error( *args )
+    $stderr.puts "on_error called: args=#{args.inspect}"
   end
 
   def next_token
