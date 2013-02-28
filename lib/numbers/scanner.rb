@@ -7,14 +7,11 @@ module Numbers
       tokens = []
       expr = Lexr.that {
         ignores /\s+/      =>  :WHITESPACE
-        if /^\s*[-+]?\d+(\.\d+\s*([eE]\s*[-+]\d+)?)?/ =~ source then
-          matches /[-+]/     =>  :SIGN
-          matches /[0-9]+/    =>  :UNSIGNED
-          matches /[eE]/     =>  :EXP
-          matches /\./       =>  :POINT
-        else
-          matches /[a-fA-F0-9]+/ => :HEXA
-        end
+        matches /[-+]/     =>  :SIGN
+        matches /[0-9]+/   =>  :UNSIGNED
+        matches /[eE]/     =>  :E
+        matches /\./       =>  :POINT
+        matches /[a-dfA-DF]/ => :HEXLETTER
       }
       lexer = expr.new(source)
       until lexer.end?
