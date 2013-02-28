@@ -7,15 +7,19 @@ num        : scientific
            | floating
            | integer
            | hexa
-scientific : floating E integer     {result = val.join}
-           | integer E SIGN UNSIGNED {result = val.join}
+scientific : floating E signed     {result = val.join}
+           | integer E signed      {result = val.join}
 floating   : integer POINT UNSIGNED   {result = val.join}
-integer    : SIGN UNSIGNED            {result = val.join}
+integer    : signed
            | UNSIGNED
-hexa       : HEXLETTER
+signed     : SIGN UNSIGNED { result = val.join }
+hexa       : hex
+           | hex UNSIGNED { result = val.join }
+           | UNSIGNED hex { result = val.join }
+           | hexa hex {result = val.join}
+           | hexa UNSIGNED {result = val.join}
+hex        : HEXLETTER
            | E
-           | UNSIGNED
-           | hexa hexa {result = val.join}
 
 end
 
