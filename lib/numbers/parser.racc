@@ -7,24 +7,23 @@ num        : scientific
            | floating
            | integer
            | hexa
-scientific : floating E signed     {result = val.join}
-           | integer E signed      {result = val.join}
-floating   : integer POINT UNSIGNED   {result = val.join}
-integer    : signed
-           | UNSIGNED
-signed     : SIGN UNSIGNED { result = val.join }
-hexa       : hex
-           | hex UNSIGNED { result = val.join }
-           | UNSIGNED hex { result = val.join }
-           | hexa hex {result = val.join}
-           | hexa UNSIGNED {result = val.join}
+hexa       : hex hexa               {result = val.join}
+           | hex
 hex        : HEXLETTER
            | E
+           | UNSIGNED
+scientific : floating E signed      {result = val.join}
+           | integer  E signed      {result = val.join}
+floating   : integer POINT UNSIGNED {result = val.join}
+integer    : signed
+           | UNSIGNED
+signed     : SIGN UNSIGNED          {result = val.join}
 
 end
 
 ---- inner ----
   def parse(tokens)
+    # @yydebug = true
     @tokens = tokens
     do_parse
   end

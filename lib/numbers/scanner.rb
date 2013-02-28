@@ -6,11 +6,11 @@ module Numbers
     def self.scan(source)
       tokens = []
       expr = Lexr.that {
-        ignores /\s+/      =>  :WHITESPACE
-        matches /[-+]/     =>  :SIGN
-        matches /[0-9]+/   =>  :UNSIGNED
-        matches /[eE]/     =>  :E
-        matches /\./       =>  :POINT
+        ignores /\s+/        => :WHITESPACE
+        matches /[-+]/       => :SIGN
+        matches /[0-9]+/     => :UNSIGNED
+        matches /[eE]/       => :E
+        matches /\./         => :POINT
         matches /[a-dfA-DF]/ => :HEXLETTER
       }
       lexer = expr.new(source)
