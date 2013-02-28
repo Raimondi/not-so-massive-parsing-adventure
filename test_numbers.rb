@@ -31,7 +31,19 @@ class TestNumbers < Test::Unit::TestCase
         testNumbers.each do |x|
             tokens = Numbers::Scanner.scan(x)
             result = Numbers::Parser.new.parse(tokens)
-            assert_not_nil result, x
+            assert_not_nil result, "Test: #{x.inspect}"
+        end
+        testFailures =
+            [
+                ".", ".0", "0.", "123..456",
+                "", "+", "-", "+.", "-.",
+                "--1", "++1", "+-1", "-+1",
+                "1e+", "1e-"
+        ]
+        testFailures.each do |x|
+            tokens = Numbers::Scanner.scan(x)
+            result = Numbers::Parser.new.parse(tokens)
+            assert result.nil?, "Test: #{x.inspect}"
         end
     end
 end
